@@ -49,7 +49,7 @@ class Environment():
     def game_over(self):
         return self.env.game_over()
 
-    def score(self):
+    def getScore(self):
         return self.env.score()
         
     def step(self, action):

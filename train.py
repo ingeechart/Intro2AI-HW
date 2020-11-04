@@ -62,10 +62,10 @@ def train(hParam, env, agent):
                 # Update the target network, copying all weights and biases in DQN
                 if env.game_over():
                     print('Episode: {}  Global Step: {}, Episode score: {:.4f}  Episode Total Reward: {:.4f} Loss: {:.4f}'.format(
-                       i_episode, global_steps, env.score ,env.total_reward, loss))
+                       i_episode, global_steps, env.getScore() ,env.total_reward, loss))
 
                     writer.add_scalar('Episode_total_reward', env.total_reward, i_episode)
-                    writer.add_scalar('Episode', env.score, i_episode)
+                    writer.add_scalar('Episode', env.getScore(), i_episode)
 
                     if env.total_reward > best:
                         agent.save()
