@@ -1,14 +1,15 @@
-# DQN-hw
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ingeechart/DQN-hw/blob/gym/main.ipynb)
+# Intro2AI-HW.git
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ingeechart/Intro2AI-HW.git/blob/gym/main.ipynb)
 https://github.com/ntasfi/PyGame-Learning-Environment
 
 ## 설치
 * Git 저장소를 다운로드 받습니다.
 ```batch
 :: 0. Clone with submodule
-git clone https://github.com/ingeechart/DQN-hw.git --recurse-submodules
+git clone https://github.com/ingeechart/Intro2AI-HW.git --recurse-submodules
 
 :: 1. Install required modules.
+cd IntIntro2AI-HW
 python -m pip install -r requirements.txt
 
 :: 2. Install gym-flappy-bird
