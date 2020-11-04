@@ -57,3 +57,7 @@ $ bash install.sh
 * 코드 블럭이 순서대로 실행되는 것을 기다린다. 마지막 블럭에서 게임이 진행되며 화면이 출력되는 것을 확인한다.
 ![Colab Run](https://github.com/ingeechart/Intro2AI-HW/blob/master/res/colab_notebook_run.PNG)
 * 위의 화면에서 `Device: cuda`가 정상적으로 출력되었는지 확인한다. `Device: cpu` 등의 메시지가 나온다면 [GPU 설정](https://github.com/ingeechart/Intro2AI-HW#GPU-설정) 과정으로 돌아간다.\
+
+
+## colab 기초
+* [link](https://www.notion.so/ingeechart/Colab-7209aac5bc044a998f1b12ff36f89201#3c94139623874036b59d7cd68394f6a1)
