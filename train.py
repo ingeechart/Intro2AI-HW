@@ -18,7 +18,6 @@ else:
 # * incase using GPU * #
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
-episode_durations = []
 
 
 def train(hParam, env, agent):
