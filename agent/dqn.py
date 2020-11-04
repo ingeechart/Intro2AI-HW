@@ -16,8 +16,8 @@ class DQN(nn.Module):
         
         self.relu = nn.ReLU()
 
-        self.fc1 = nn.Linear(64*11*11, 512)
-        self.fc2 = nn.Linear(512, 2)
+        self.fc1 = nn.Linear(28224, 512)
+        self.fc2 = nn.Linear(28224, 2)
         ## end
 
 

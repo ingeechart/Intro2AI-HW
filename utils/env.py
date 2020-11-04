@@ -18,7 +18,7 @@ from utils.utils import convert, make_video
 
 
 class Environment():
-    def __init__(self, device, display=False):
+    def __init__(self, device, display=True):
         # Design reward
         reward_values = {
             "positive": 1,
