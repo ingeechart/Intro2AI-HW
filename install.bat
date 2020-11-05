@@ -1,5 +1,5 @@
 :: 0. Clone with submodule
-git clone https://github.com/ingeechart/DQN-hw.git --recurse-submodules
+git clone https://github.com/ingeechart/Intro2AI-HW.git --recurse-submodules
 ::git submodule add https://github.com/ntasfi/PyGame-Learning-Environment.git
 
 :: 1. Install required modules.
