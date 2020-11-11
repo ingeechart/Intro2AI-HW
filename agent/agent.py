@@ -143,18 +143,16 @@ class Agent():
 
         # print('eps: ',self.eps_threshold)
 
-    def save(self, epoch, path='checkpoint.pth.tar'):
+    def save(self, path='checkpoint.pth.tar'):
         print('save')
         torch.save({
-            'epoch': epoch,
             'state_dict': self.qNetwork.state_dict(),
             'optimizer_state_dict': self.optimizer.state_dict()
         }, path)
 
     def load(self, path='checkpoint.pth.tar'):
-        print('load')
+        print('load:', path)
         checkpoint = torch.load(path)
         self.qNetwork.load_state_dict(checkpoint['state_dict'])
         self.targetNetwork.load_state_dict(checkpoint['state_dict'])
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        return checkpoint['epoch']

@@ -13,8 +13,8 @@ if torch.__version__ <= '1.1.0':
 else:
     from torch.utils.tensorboard import SummaryWriter
 
-CHECKPOINT_PATH = os.path.join(os.path.dirname(__file__), 'checkpoint.pth.tar')
-BEST_CHECKPOINT_PATH = os.path.join(os.path.join(os.path.dirname(__file__), 'best_checkpoint.pth.tar'))
+CHECKPOINT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'checkpoint.pth.tar')
+BEST_CHECKPOINT_PATH = os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'best_checkpoint.pth.tar'))
 
 # * incase using GPU * #
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -23,7 +23,7 @@ print(device)
 
 def train(hParam, env, agent):
     best = 0
-    global_steps = hParam['STEP'] or 0
+    global_steps = 0
     i_episode = 0
 
     writer = SummaryWriter()
@@ -60,10 +60,10 @@ def train(hParam, env, agent):
                     writer.add_scalar('Episode_total_reward', env.total_reward, i_episode)
                     writer.add_scalar('Episode', env.getScore(), i_episode)
 
-                    agent.save(global_steps, CHECKPOINT_PATH)
+                    agent.save(CHECKPOINT_PATH)
 
                     if env.total_reward > best:
-                        agent.save(global_steps, BEST_CHECKPOINT_PATH)
+                        agent.save(BEST_CHECKPOINT_PATH)
                         best = env.total_reward
 
                 # update Qnetwork
@@ -86,7 +86,6 @@ if __name__ == '__main__':
         'TARGET_UPDATE': 10000,
         'EPS_START': 0.1,
         'EPS_END': 0.0001,
-        'STEP': 0,
         'MAX_ITER': 2000000,
         'DISCOUNT_FACTOR': 0.99,
         'LR': 1e-6,
@@ -98,6 +97,10 @@ if __name__ == '__main__':
     sungjun = Agent(env.action_set, hParam)
 
     if os.path.exists(CHECKPOINT_PATH):
-        hParam['STEP'] = sungjun.load(CHECKPOINT_PATH)
+        try:
+            sungjun.load(CHECKPOINT_PATH)
+        except:     # RuntimeError
+            if os.path.exists(BEST_CHECKPOINT_PATH):
+                sungjun.load(BEST_CHECKPOINT_PATH)
 
     train(hParam, env, sungjun)
