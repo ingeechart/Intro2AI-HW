@@ -1,11 +1,7 @@
-import math
-import numpy as np
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
 import cv2
-
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torchvision.transforms as T
 
 from utils.env import Environment
 from agent.agent import Agent
@@ -29,12 +25,11 @@ def train(hParam, env, agent):
 
     print('TRAIN STARTS')
 
-    while(hParam['MAX_ITER'] > global_steps ):
+    while hParam['MAX_ITER'] > global_steps:
         # Initialize the environment and state
         env.reset()
         state = env.start()
         i_episode += 1
-
 
         while not env.game_over():
             global_steps += 1
@@ -45,15 +40,8 @@ def train(hParam, env, agent):
             # make an action.
             next_state, reward, done = env.step(action) # next_state, reward, done
 
-            # frame = env.get_screen()
-            # frame = np.rot90(frame, k=1)
-            # frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-            # frame = frame[::-1]
-            # cv2.imshow('frame', frame)
-
             # Store the state, action, next_state, reward, done in memory
             agent.memory.push(state, action, next_state, reward, done)
-
 
             if global_steps > hParam['BUFFER_SIZE']:
                 if global_steps % hParam['TARGET_UPDATE'] == 0:
@@ -62,7 +50,7 @@ def train(hParam, env, agent):
                 # Update the target network, copying all weights and biases in DQN
                 if env.game_over():
                     print('Episode: {}  Global Step: {}, Episode score: {:.4f}  Episode Total Reward: {:.4f} Loss: {:.4f}'.format(
-                       i_episode, global_steps, env.getScore() ,env.total_reward, loss))
+                       i_episode, global_steps, env.getScore(), env.total_reward, loss))
 
                     writer.add_scalar('Episode_total_reward', env.total_reward, i_episode)
                     writer.add_scalar('Episode', env.getScore(), i_episode)
@@ -75,7 +63,7 @@ def train(hParam, env, agent):
                 loss = agent.updateQnet()
                 writer.add_scalar('train_loss', loss, global_steps)
 
-            elif global_steps%500 == 0: 
+            elif global_steps % 500 == 0:
                 print('steps {}/{}'.format(global_steps, hParam['MAX_ITER']))
 
             # Move to the next state

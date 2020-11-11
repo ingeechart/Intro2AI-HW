@@ -1,20 +1,10 @@
 import os
-import matplotlib
-import matplotlib.pyplot as plt
-from PIL import Image
 import numpy as np
 
 from ple import PLE
 from ple.games.flappybird import FlappyBird
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-import torchvision.transforms as T
-
 from utils.utils import convert, make_video
-# from utils import convert, make_video
 
 
 class Environment():
@@ -26,13 +16,12 @@ class Environment():
             "loss": -1,
         }
         self.env = PLE(FlappyBird(),
-                        display_screen=display,
-                        reward_values=reward_values)
+                       display_screen=display,
+                       reward_values=reward_values)
         self.device = device
         self.action_set = self.env.getActionSet()
-        
-        self.frames = []
 
+        self.frames = []
 
     def reset(self):
         self.env.reset_game()
@@ -51,9 +40,9 @@ class Environment():
 
     def getScore(self):
         return self.env.score()
-        
+
     def step(self, action):
-        
+
         reward = self.env.act(self.action_set[action])
 
         # make next state
@@ -74,7 +63,6 @@ class Environment():
         self.frames.append(self.env.getScreenRGB())
 
     def saveVideo(self, episode, video_path):
-
         os.makedirs(video_path, exist_ok=True)
         clip = make_video(self.frames, fps=60).rotate(-90)
         clip.write_videofile(os.path.join(
@@ -82,12 +70,7 @@ class Environment():
         print('Episode: {} t: {} Reward: {:.3f}'.format(
             episode, self.t_alive, self.total_reward))
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     env = Environment(device='cpu')
     print(env.action_set)
-    # env.reset()
-    # plt.figure()
-    # plt.imshow(env.get_screen().cpu().squeeze(0).permute(1, 2, 0).numpy(),
-    #     interpolation='none')
-    # plt.title('Example extracted screen')
-    # plt.show()
