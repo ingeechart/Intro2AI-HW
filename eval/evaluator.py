@@ -24,6 +24,7 @@ from utils.env import Environment   # noqa: E402
 CHECKPOINT_PATH = 'checkpoint.pth.tar'
 BEST_CHECKPOINT_PATH = 'best_checkpoint.pth.tar'
 SAMPLE_SIZE = 5
+CUTLINE = 200
 
 regex = re.compile(r'(?P<name>[\w\s]+)_[\d]+_assignsubmission_file_')
 
@@ -47,7 +48,7 @@ def evaluate(env, model, n=SAMPLE_SIZE):
         env.reset()
         state = env.start()
         total_reward = 0
-        while not env.game_over():
+        while not env.game_over() and total_reward < CUTLINE:
             state = torch.from_numpy(state).float() / 255.0
             state = state.to(device)
             action = model(state).max(1)[1].cpu().data[0]
