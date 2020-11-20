@@ -146,7 +146,7 @@ def main():
                 mean_score = 0.0
 
             with open(os.path.join(os.path.dirname(__file__), str(clazz) + '.csv'), 'at', encoding='utf-8') as f:
-                f.write('%s,%f\n' % (student_name, mean_score))
+                f.write('%s,%f\n' % (student_name, min(mean_score, 100)))
 
             sys.path.pop()
 
